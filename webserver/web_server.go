@@ -46,6 +46,9 @@ func New(host string, port int) *WebServer {
 		Handler: mux,
 	}
 
+	// Start on a separate goroutine
+	go server.Start()
+
 	return &server
 }
 
@@ -98,8 +101,9 @@ func (s *WebServer) HandleWebSocketRequest(w http.ResponseWriter, r *http.Reques
 
 // Start will start the web server
 func (s *WebServer) Start() {
-	log.Println("Starting server at", s.host, s.port)
+	log.Println("Starting HTTP server at", s.host, s.port)
+	// Blocking call
 	if err := s.httpServer.ListenAndServe(); err != nil {
-		log.Fatalln("Failed to start server at", s.host, s.port)
+		log.Fatalln(err)
 	}
 }

@@ -6,10 +6,18 @@
 package main
 
 import (
+	"log"
+
+	"rimortm/udpserver"
 	"rimortm/webserver"
 )
 
 func main() {
-	s := webserver.New("127.0.0.1", 8080)
-	s.Start()
+	log.Println("Starting RTM")
+
+	_ = udpserver.New("127.0.0.1", 6000)
+	_ = webserver.New("127.0.0.1", 8080)
+
+	// Block forever while goroutines run as needed
+	select {}
 }

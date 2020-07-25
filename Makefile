@@ -7,7 +7,7 @@ all: build
 GOPATH = $(shell go env GOPATH)
 
 build:
-	$(GOPATH)bin/golint apps/ webserver/
+	$(GOPATH)bin/golint apps udpserver webserver
 	GOOS=darwin GOARCH=amd64 go build -o rtm apps/rtm.go
 
 clean:
